@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Strikethrough</title>
+
+    <style>
+      #app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #from, #to {
+        width: 70%;
+        height: 150px;
+        font-size: 2em;
+      }
+      textarea {
+        display: block;
+        padding-bottom: 10px;
+      }
+      button {
+        width: 30%;
+        height: 50px;
+        font-size: 2em;
+        margin: 20px 0;
+      }
+    </style>
+    <script>
+      document.addEventListener('DOMContentLoaded',function() {
+        document.getElementById('from').onkeyup=doStrike;
+        document.getElementById('copy').ontouchend=copy;
+        document.getElementById('copy').onclick=copy;
+      },false);
+
+      function doStrike(event) {
+        let to = document.getElementById('to');
+        let text = event.target.value;
+        to.value = text.split('').join('\u0336') + '\u0336';
+      }
+
+      function copy(event) {
+        let to = document.getElementById('to');
+        to.focus();
+        to.select();
+        document.execCommand('copy');
+        window.getSelection().removeAllRanges();
+      }
+    </script>
+</head>
+<body>
+  <main id="app">
+    <textarea id="from" cols="30" rows="10"></textarea>
+    <button id="copy">Ctrl+C</button>
+    <textarea id="to" cols="30" rows="10"></textarea>
+  </main>
+</body>
+</html>
